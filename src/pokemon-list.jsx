@@ -65,7 +65,9 @@ const PokemonList = () => {
               // console.log({ updatedData });
               setIsLoading(false);
             })
-            .catch((err) => new Error("Error Fetching data"))
+            .catch((err) => {
+              throw new Error("Error Fetching data");
+            })
         );
       })
       .catch((err) => {
