@@ -48,17 +48,24 @@ const PokemonList = () => {
         setTotalDataCount(totalCount);
         const pokemonResults = res.data.results;
         pokemonResults.map((val) =>
-          axios.get(val.url).then((res) => {
-            const updatedData = {
-              ...val,
-              imgUrl: res.data.sprites.other["official-artwork"].front_default,
-              types: res.data.types,
-              id: String(res.data.id).padStart(String(totalCount).length, "0"),
-            };
-            setData((prevData) => [...prevData, updatedData]);
-            // console.log({ updatedData });
-            setIsLoading(false);
-          })
+          axios
+            .get(val.url)
+            .then((res) => {
+              const updatedData = {
+                ...val,
+                imgUrl:
+                  res.data.sprites.other["official-artwork"].front_default,
+                types: res.data.types,
+                id: String(res.data.id).padStart(
+                  String(totalCount).length,
+                  "0"
+                ),
+              };
+              setData((prevData) => [...prevData, updatedData]);
+              // console.log({ updatedData });
+              setIsLoading(false);
+            })
+            .catch((err) => new Error("Error Fetching data"))
         );
       })
       .catch((err) => {
@@ -144,7 +151,7 @@ const PokemonList = () => {
           ))}
       </div>
       <div>
-        Displaying {offSet} of {totalDataCount}
+        Displaying {isLoading ? <SpinnerMini /> : offSet} of {totalDataCount}
       </div>
       <button
         type="submit"
