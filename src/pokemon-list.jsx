@@ -40,7 +40,7 @@ const PokemonList = () => {
   };
 
   useEffect(() => {
-    const List = setIsLoading(true);
+    setIsLoading(true);
     axios
       .get(`https://pokeapi.co/api/v2/pokemon?limit=5&offset=${offSet}`)
       .then((res) => {
@@ -63,7 +63,6 @@ const PokemonList = () => {
               };
               setData((prevData) => [...prevData, updatedData]);
               // console.log({ updatedData });
-              setIsLoading(false);
             })
             .catch((err) => {
               throw new Error("Error Fetching data");
